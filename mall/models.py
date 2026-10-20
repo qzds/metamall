@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -63,6 +64,11 @@ class Store(models.Model):
     def __str__(self):
         return f"{self.factory.name} / {self.name}"
 
+    @property
+    def featured_image(self):
+        product = self.products.first()
+        return product.image_url if product else ""
+
     def build_scene(self):
         defaults = TEMPLATE_DEFAULTS.get(self.template, TEMPLATE_DEFAULTS["boutique"])
         cfg = dict(defaults)
@@ -81,6 +87,7 @@ class Store(models.Model):
                     "name": product.name,
                     "price": str(product.price),
                     "color": color,
+                    "image": product.image_url,
                     "slot": index % 8,
                     "position": [
                         -width / 2 + 1.6 + (index % 4) * 2.7,
@@ -113,6 +120,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to="products/", blank=True)
+    image_name = models.CharField(max_length=120, blank=True)
     sizes = models.JSONField(default=list, blank=True)
     colors = models.JSONField(default=list, blank=True)
     is_active = models.BooleanField(default=True)
@@ -123,3 +131,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.store.name})"
+
+    @property
+    def image_url(self):
+        if not self.image_name:
+            return ""
+        return f"{settings.STATIC_URL}img/products/{self.image_name}"

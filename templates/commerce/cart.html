@@ -12,7 +12,9 @@
   <div class="cart-main">
     {% for row in rows %}
       <div class="cart-row">
-        <div class="product-thumb" style="background: {{ row.product.colors.0|default:'#D9D2C6' }}"></div>
+        <div class="product-thumb" style="background: {{ row.product.colors.0|default:'#D9D2C6' }}">
+          {% if row.product.image_url %}<img src="{{ row.product.image_url }}" alt="{{ row.product.name }}">{% endif %}
+        </div>
         <div class="product-info">
           <strong>{{ row.product.name }}</strong>
           <span>{{ row.product.store.name }} · ¥{{ row.product.price }} × {{ row.qty }}</span>

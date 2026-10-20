@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}建店器{% endblock %}
 {% block content %}
 <section class="page-head">
   <p class="eyebrow">AUTO STORE BUILDER</p>
   <h1>现场建一家店</h1>
-  <p class="lead">选择工厂、模板和品牌色；可以复制一家已有店铺的商品作为起点。发布后会立刻出现在商圈。</p>
+  <p class="lead">改模板、品牌色、店名和商品，右侧的 3D 店铺实时变化；发布后立刻出现在商圈。</p>
 </section>
 
 <section class="builder-layout">
@@ -12,17 +13,20 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button class="button" type="submit">生成并发布</button>
+    <p class="muted small">商品来自来源店铺；发布后可在 Django Admin 继续调整。</p>
   </form>
-  <aside class="builder-note">
-    <p class="eyebrow">HOW IT WORKS</p>
-    <h2>配置会改变场景</h2>
-    <ul>
-      <li>模板决定房间尺寸、墙地色和灯光。</li>
-      <li>品牌色进入招牌、收银台和商品标签。</li>
-      <li>商品从来源店铺复制，之后可在 Django Admin 调整。</li>
-      <li>发布后 Shopify 式地出现在商圈，不需要改代码。</li>
-    </ul>
-    <p class="muted">当前是第一版建店器；实时 3D 预览和商品选择器会在下一轮迭代加入。</p>
-  </aside>
+  <div class="builder-preview">
+    <div id="builder-canvas"></div>
+    <div class="preview-label">LIVE PREVIEW</div>
+    <p class="canvas-hint">模板 / 品牌色 / 店名 / 商品，右侧实时更新</p>
+    <div class="preview-chips">
+      <span>配置驱动</span><span>增量更新</span><span>发布即入商圈</span>
+    </div>
+  </div>
 </section>
+
+{{ preview_stores|json_script:"builder-data" }}
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{% static 'js/builder.js' %}"></script>
 {% endblock %}

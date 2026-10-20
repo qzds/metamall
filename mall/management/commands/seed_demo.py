@@ -59,6 +59,7 @@ class Command(BaseCommand):
                     "name": item["name"],
                     "price": Decimal(item["price"]),
                     "stock": item["stock"],
+                    "image_name": f"{item['sku']}.png",
                     "sizes": item.get("sizes", []),
                     "colors": item.get("colors", []),
                     "is_active": True,

@@ -19,12 +19,13 @@ def _store_card(store):
         "factory": store.factory.name,
         "tagline": (store.config or {}).get("tagline", ""),
         "accent": palette.get("accent", default_accent),
+        "featured": (store.products.first().image_url if store.products.first() else ""),
         "url": reverse("mall:store", args=[store.slug]),
     }
 
 
 def mall_index(request):
-    stores = Store.objects.filter(is_published=True).select_related("factory")
+    stores = Store.objects.filter(is_published=True).select_related("factory").prefetch_related("products")
     return render(
         request,
         "mall/index.html",
@@ -98,10 +99,30 @@ def builder(request):
             messages.success(request, f"店铺「{store.name}」已生成并发布到商圈。")
             return redirect("mall:store", slug=store.slug)
     else:
-        form = StoreCreateForm()
+        first_store = Store.objects.filter(is_published=True).first()
+        form = StoreCreateForm(initial={"source_store": first_store})
+
+    stores = list(Store.objects.filter(is_published=True).prefetch_related("products"))
+    preview_stores = {}
+    for store in stores:
+        palette = (store.config or {}).get("palette", {})
+        preview_stores[str(store.id)] = {
+            "name": store.name,
+            "template": store.template,
+            "accent": palette.get("accent", "#B23A48"),
+            "tagline": (store.config or {}).get("tagline", ""),
+            "products": [
+                {
+                    "name": product.name,
+                    "image": product.image_url,
+                    "color": product.colors[0] if product.colors else palette.get("accent", "#B23A48"),
+                }
+                for product in store.products.filter(is_active=True)[:4]
+            ],
+        }
 
     return render(
         request,
         "mall/builder.html",
-        {"form": form, "stores": Store.objects.filter(is_published=True)},
+        {"form": form, "stores": stores, "preview_stores": preview_stores},
     )

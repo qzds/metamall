@@ -23,6 +23,9 @@
   <div class="store-grid">
     {% for store in stores %}
       <a class="store-card" href="{% url 'mall:store' store.slug %}">
+        {% if store.featured_image %}
+          <div class="store-cover"><img src="{{ store.featured_image }}" alt="{{ store.name }}"></div>
+        {% endif %}
         <div class="store-band" style="background: {{ store.config.palette.accent|default:'#B23A48' }}"></div>
         <div class="store-card-body">
           <p class="muted">{{ store.factory.name }}</p>
