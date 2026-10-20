@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}3D 商圈{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">METAVERSE RETAIL DISTRICT</p>
+    <h1>三个工厂，<br>三家可以走进去的店。</h1>
+    <p class="lead">点击门面进入店铺；建店器可以现场生成第 4 家。所有门面都对应真实商品和购物车。</p>
+    <a class="button" href="{% url 'mall:builder' %}">现场建一家店</a>
+  </div>
+  <div class="hero-canvas">
+    <div id="mall-canvas"></div>
+    <p class="canvas-hint">拖动旋转 · 滚轮缩放 · 点击门面进入</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">STORES</p>
+    <h2>本期店铺</h2>
+  </div>
+  <div class="store-grid">
+    {% for store in stores %}
+      <a class="store-card" href="{% url 'mall:store' store.slug %}">
+        <div class="store-band" style="background: {{ store.config.palette.accent|default:'#B23A48' }}"></div>
+        <div class="store-card-body">
+          <p class="muted">{{ store.factory.name }}</p>
+          <h3>{{ store.name }}</h3>
+          <p>{{ store.config.tagline|default:"欢迎进店看看" }}</p>
+          <span class="text-link">进入 3D 店铺 →</span>
+        </div>
+      </a>
+    {% empty %}
+      <p>还没有已发布的店铺，请先运行 seed_demo 或在后台创建。</p>
+    {% endfor %}
+  </div>
+</section>
+
+{{ stores_data|json_script:"mall-data" }}
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{% static 'js/mall.js' %}"></script>
+{% endblock %}

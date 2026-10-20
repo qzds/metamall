@@ -1,0 +1,47 @@
+{% load static %}
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}元宇宙商圈{% endblock %} · ERP 1.7</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "{% static 'vendor/three/build/three.module.js' %}",
+        "three/addons/": "{% static 'vendor/three/examples/jsm/' %}"
+      }
+    }
+  </script>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="{% url 'mall:index' %}">METAMALL<span>·</span></a>
+    <nav>
+      <a href="{% url 'mall:index' %}">商圈</a>
+      <a href="{% url 'mall:builder' %}">建店器</a>
+      <a href="{% url 'commerce:cart' %}">购物车</a>
+      <a href="/admin/">后台</a>
+    </nav>
+  </header>
+
+  <main>
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <span>ERP 1.7 · 元宇宙商圈 · v2 MVP</span>
+    <span>Django + Three.js + SQLite</span>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

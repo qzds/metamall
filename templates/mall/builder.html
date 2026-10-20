@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}建店器{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="eyebrow">AUTO STORE BUILDER</p>
+  <h1>现场建一家店</h1>
+  <p class="lead">选择工厂、模板和品牌色；可以复制一家已有店铺的商品作为起点。发布后会立刻出现在商圈。</p>
+</section>
+
+<section class="builder-layout">
+  <form class="form-card" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="button" type="submit">生成并发布</button>
+  </form>
+  <aside class="builder-note">
+    <p class="eyebrow">HOW IT WORKS</p>
+    <h2>配置会改变场景</h2>
+    <ul>
+      <li>模板决定房间尺寸、墙地色和灯光。</li>
+      <li>品牌色进入招牌、收银台和商品标签。</li>
+      <li>商品从来源店铺复制，之后可在 Django Admin 调整。</li>
+      <li>发布后 Shopify 式地出现在商圈，不需要改代码。</li>
+    </ul>
+    <p class="muted">当前是第一版建店器；实时 3D 预览和商品选择器会在下一轮迭代加入。</p>
+  </aside>
+</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ store.name }}{% endblock %}
+{% block content %}
+<section class="store-head">
+  <div>
+    <p class="eyebrow">{{ store.factory.name }} / 3D STORE</p>
+    <h1>{{ store.name }}</h1>
+    <p class="lead">{{ store.config.tagline|default:"欢迎进店看看" }}</p>
+  </div>
+  <a class="button ghost" href="{% url 'mall:index' %}">← 返回商圈</a>
+</section>
+
+<section class="store-layout">
+  <div class="store-canvas-wrap">
+    <div id="store-canvas"></div>
+    <p class="canvas-hint">拖动旋转 · 滚轮缩放 · 商品在下方加入购物车</p>
+  </div>
+  <aside class="store-side">
+    <p class="eyebrow">COLLECTION</p>
+    <h2>本店商品</h2>
+    {% for product in products %}
+      <div class="product-row">
+        <div class="product-thumb" style="background: {{ product.colors.0|default:'#D9D2C6' }}">
+          {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}">{% endif %}
+        </div>
+        <div class="product-info">
+          <strong>{{ product.name }}</strong>
+          <span>¥{{ product.price }} · 库存 {{ product.stock }}</span>
+        </div>
+        <form method="post" action="{% url 'commerce:cart_add' product.id %}">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{% url 'mall:store' store.slug %}">
+          <button class="mini-button" type="submit" {% if product.stock == 0 %}disabled{% endif %}>加购</button>
+        </form>
+      </div>
+    {% empty %}
+      <p>这家店还没有商品，去后台添加吧。</p>
+    {% endfor %}
+  </aside>
+</section>
+
+{{ scene|json_script:"store-scene" }}
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{% static 'js/store.js' %}"></script>
+{% endblock %}

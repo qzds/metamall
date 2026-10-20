@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}购物车{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="eyebrow">CART / CHECKOUT</p>
+  <h1>购物车</h1>
+  <p class="lead">访客结算；优惠券在提交订单时校验，库存用条件更新扣减。</p>
+</section>
+
+{% if rows %}
+<section class="cart-layout">
+  <div class="cart-main">
+    {% for row in rows %}
+      <div class="cart-row">
+        <div class="product-thumb" style="background: {{ row.product.colors.0|default:'#D9D2C6' }}"></div>
+        <div class="product-info">
+          <strong>{{ row.product.name }}</strong>
+          <span>{{ row.product.store.name }} · ¥{{ row.product.price }} × {{ row.qty }}</span>
+        </div>
+        <strong>¥{{ row.line_total }}</strong>
+        <form method="post" action="{% url 'commerce:cart_remove' row.product.id %}">
+          {% csrf_token %}
+          <button class="text-button" type="submit">移除</button>
+        </form>
+      </div>
+    {% endfor %}
+    <div class="cart-total">
+      <span>商品小计</span>
+      <strong>¥{{ subtotal }}</strong>
+    </div>
+  </div>
+
+  <form class="form-card checkout-card" method="post" action="{% url 'commerce:checkout' %}">
+    {% csrf_token %}
+    <input type="hidden" name="client_token" value="{{ client_token }}">
+    <h2>结算信息</h2>
+    <label>收货人<input name="customer_name" required maxlength="80" placeholder="例如：张三"></label>
+    <label>电话<input name="phone" required maxlength="30" placeholder="用于演示，不会真实发货"></label>
+    <label>地址<input name="address" required maxlength="240" placeholder="例如：厦门大学 xx 宿舍"></label>
+    <label>优惠券（可选）<input name="coupon_code" maxlength="40" placeholder="WELCOME30"></label>
+    <p class="muted small">可用演示券：WELCOME30（满 199 减 30）、MINT50（极简工坊满 399 减 50）、QINGHE10（青禾 9 折）。</p>
+    <button class="button" type="submit">提交订单（模拟支付）</button>
+  </form>
+</section>
+{% else %}
+<section class="empty-state">
+  <h2>购物车是空的</h2>
+  <p>先回商圈逛逛，进店选一件。</p>
+  <a class="button" href="{% url 'mall:index' %}">回商圈</a>
+</section>
+{% endif %}
+{% endblock %}

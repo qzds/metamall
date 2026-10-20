@@ -1,0 +1,138 @@
+{
+  "factories": [
+    {
+      "name": "云裳制衣",
+      "slug": "yunchang",
+      "description": "东方剪裁与现代日常之间的女装工厂。"
+    },
+    {
+      "name": "极简工坊",
+      "slug": "jijian",
+      "description": "黑白灰基础款与通勤衣橱。"
+    },
+    {
+      "name": "青禾服饰",
+      "slug": "qinghe",
+      "description": "自然色、棉麻与轻松日常。"
+    }
+  ],
+  "stores": [
+    {
+      "factory": "yunchang",
+      "name": "云裳制衣",
+      "slug": "yunchang-store",
+      "template": "boutique",
+      "is_published": true,
+      "config": {
+        "tagline": "东方剪裁，现代日常",
+        "width": 12,
+        "depth": 10,
+        "height": 4,
+        "lighting": "warm",
+        "seed": 11,
+        "palette": {
+          "wall": "#F3EEE7",
+          "floor": "#B9A48C",
+          "accent": "#B23A48",
+          "sign": "#1F2937"
+        }
+      }
+    },
+    {
+      "factory": "jijian",
+      "name": "极简工坊",
+      "slug": "jijian-store",
+      "template": "minimal",
+      "is_published": true,
+      "config": {
+        "tagline": "少一点，刚刚好",
+        "width": 10,
+        "depth": 8,
+        "height": 3.6,
+        "lighting": "cool",
+        "seed": 23,
+        "palette": {
+          "wall": "#ECECEC",
+          "floor": "#C9C4BA",
+          "accent": "#3D7068",
+          "sign": "#1A1A1A"
+        }
+      }
+    },
+    {
+      "factory": "qinghe",
+      "name": "青禾服饰",
+      "slug": "qinghe-store",
+      "template": "boutique",
+      "is_published": true,
+      "config": {
+        "tagline": "把自然穿在身上",
+        "width": 13,
+        "depth": 9,
+        "height": 3.8,
+        "lighting": "warm",
+        "seed": 37,
+        "palette": {
+          "wall": "#EEF1E8",
+          "floor": "#A9B49C",
+          "accent": "#5F8F6A",
+          "sign": "#24362C"
+        }
+      }
+    }
+  ],
+  "products": [
+    {"store": "yunchang-store", "name": "立领亚麻衬衫", "sku": "YC-001", "price": "299.00", "stock": 32, "sizes": ["S", "M", "L"], "colors": ["#C98E86", "#E8D8C8"]},
+    {"store": "yunchang-store", "name": "廓形风衣", "sku": "YC-002", "price": "699.00", "stock": 18, "sizes": ["S", "M", "L"], "colors": ["#8C5A4A", "#C7B29D"]},
+    {"store": "yunchang-store", "name": "高腰阔腿裤", "sku": "YC-003", "price": "399.00", "stock": 26, "sizes": ["S", "M", "L"], "colors": ["#2B2B2B", "#A58C78"]},
+    {"store": "yunchang-store", "name": "真丝方领连衣裙", "sku": "YC-004", "price": "899.00", "stock": 12, "sizes": ["S", "M"], "colors": ["#B23A48", "#E6D2C1"]},
+
+    {"store": "jijian-store", "name": "重磅纯棉T恤", "sku": "JJ-001", "price": "159.00", "stock": 60, "sizes": ["S", "M", "L", "XL"], "colors": ["#1A1A1A", "#F2F2F2"]},
+    {"store": "jijian-store", "name": "直筒西装裤", "sku": "JJ-002", "price": "359.00", "stock": 24, "sizes": ["S", "M", "L"], "colors": ["#2B2B2B", "#8C8C8C"]},
+    {"store": "jijian-store", "name": "轻薄羊毛开衫", "sku": "JJ-003", "price": "499.00", "stock": 16, "sizes": ["M", "L"], "colors": ["#B8B4A8", "#3D7068"]},
+    {"store": "jijian-store", "name": "廓形白衬衫", "sku": "JJ-004", "price": "299.00", "stock": 28, "sizes": ["S", "M", "L"], "colors": ["#F4F4F0", "#D9D9D2"]},
+
+    {"store": "qinghe-store", "name": "棉麻茶歇裙", "sku": "QH-001", "price": "429.00", "stock": 20, "sizes": ["S", "M", "L"], "colors": ["#7F9A74", "#D7C7A8"]},
+    {"store": "qinghe-store", "name": "植物染衬衫", "sku": "QH-002", "price": "329.00", "stock": 22, "sizes": ["S", "M", "L"], "colors": ["#A9B49C", "#E4DCCB"]},
+    {"store": "qinghe-store", "name": "软糯针织半裙", "sku": "QH-003", "price": "369.00", "stock": 18, "sizes": ["S", "M"], "colors": ["#6C7B5A", "#BFAE92"]},
+    {"store": "qinghe-store", "name": "宽松亚麻外套", "sku": "QH-004", "price": "559.00", "stock": 14, "sizes": ["M", "L"], "colors": ["#8A9A78", "#E1D6C2"]}
+  ],
+  "coupons": [
+    {
+      "code": "WELCOME30",
+      "name": "新客满 199 减 30",
+      "kind": "fixed",
+      "value": "30.00",
+      "min_spend": "199.00",
+      "valid_from": "2026-01-01T00:00:00+08:00",
+      "valid_to": "2027-12-31T23:59:59+08:00",
+      "usage_limit": 200,
+      "store": null,
+      "is_active": true
+    },
+    {
+      "code": "MINT50",
+      "name": "极简工坊满 399 减 50",
+      "kind": "fixed",
+      "value": "50.00",
+      "min_spend": "399.00",
+      "valid_from": "2026-01-01T00:00:00+08:00",
+      "valid_to": "2027-12-31T23:59:59+08:00",
+      "usage_limit": 100,
+      "store": "jijian-store",
+      "is_active": true
+    },
+    {
+      "code": "QINGHE10",
+      "name": "青禾服饰 9 折",
+      "kind": "percent",
+      "value": "10.00",
+      "min_spend": "299.00",
+      "valid_from": "2026-01-01T00:00:00+08:00",
+      "valid_to": "2027-12-31T23:59:59+08:00",
+      "usage_limit": 100,
+      "store": "qinghe-store",
+      "is_active": true
+    }
+  ]
+}
