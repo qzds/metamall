@@ -20,6 +20,7 @@ def _store_card(store):
         "tagline": (store.config or {}).get("tagline", ""),
         "accent": palette.get("accent", default_accent),
         "featured": (store.products.first().image_url if store.products.first() else ""),
+        "featured_images": [p.image_url for p in store.products.all()[:2] if p.image_url],
         "url": reverse("mall:store", args=[store.slug]),
     }
 

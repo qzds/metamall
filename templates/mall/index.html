@@ -2,17 +2,29 @@
 {% load static %}
 {% block title %}3D 商圈{% endblock %}
 {% block content %}
-<section class="hero">
-  <div class="hero-copy">
+<section class="hero-intro">
+  <div>
     <p class="eyebrow">METAVERSE RETAIL DISTRICT</p>
-    <h1>三个工厂，<br>三家可以走进去的店。</h1>
+    <h1>三个工厂，<br>三家能走进去的店。</h1>
+  </div>
+  <div class="hero-intro-side">
     <p class="lead">点击门面进入店铺；建店器可以现场生成第 4 家。所有门面都对应真实商品和购物车。</p>
     <a class="button" href="{% url 'mall:builder' %}">现场建一家店</a>
+    <div class="hero-meta">
+      <span><strong>03</strong> 工厂</span>
+      <span><strong>12</strong> 商品</span>
+      <span><strong>01</strong> 建店器</span>
+    </div>
   </div>
-  <div class="hero-canvas">
-    <div id="mall-canvas"></div>
-    <p class="canvas-hint">拖动旋转 · 滚轮缩放 · 点击门面进入</p>
-  </div>
+</section>
+
+<section class="hero-full">
+  <div class="hero-media"><div id="mall-canvas"></div></div>
+  <div class="hero-veil"></div>
+  <div class="canvas-badge">DISTRICT 01 · OPEN</div>
+  <div class="hero-status">3 STORES · LIVE</div>
+  <div id="mall-tooltip" class="scene-tooltip"></div>
+  <p class="canvas-hint">拖动旋转 · 滚轮缩放 · 点击门面进入</p>
 </section>
 
 <section class="section">
