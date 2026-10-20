@@ -1,0 +1,66 @@
+{
+  "environment": "local Chrome 155 / Intel Iris Xe / 1440x1000",
+  "cycles": [
+    {
+      "style": "gallery",
+      "geometries": 107,
+      "textures": 33
+    },
+    {
+      "style": "garden",
+      "geometries": 136,
+      "textures": 33
+    },
+    {
+      "style": "atelier",
+      "geometries": 119,
+      "textures": 33
+    },
+    {
+      "style": "gallery",
+      "geometries": 107,
+      "textures": 33
+    },
+    {
+      "style": "garden",
+      "geometries": 136,
+      "textures": 33
+    },
+    {
+      "style": "atelier",
+      "geometries": 119,
+      "textures": 33
+    },
+    {
+      "style": "gallery",
+      "geometries": 107,
+      "textures": 33
+    },
+    {
+      "style": "garden",
+      "geometries": 136,
+      "textures": 33
+    },
+    {
+      "style": "atelier",
+      "geometries": 119,
+      "textures": 33
+    },
+    {
+      "style": "gallery",
+      "geometries": 107,
+      "textures": 33
+    },
+    {
+      "style": "garden",
+      "geometries": 136,
+      "textures": 33
+    },
+    {
+      "style": "atelier",
+      "geometries": 119,
+      "textures": 33
+    }
+  ],
+  "note": "12 live structural style changes; textures stable at 33 after warm-up."
+}

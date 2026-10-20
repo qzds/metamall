@@ -1,0 +1,370 @@
+{
+  "entrances": [
+    {
+      "url": "/stores/yunchang-store/",
+      "canvasClick": true,
+      "hover": "pointer",
+      "products": 4,
+      "cameraPresets": true,
+      "backCanvas": 1
+    },
+    {
+      "url": "/stores/jijian-store/",
+      "canvasClick": true,
+      "hover": "pointer",
+      "products": 4,
+      "cameraPresets": true,
+      "backCanvas": 1
+    },
+    {
+      "url": "/stores/qinghe-store/",
+      "canvasClick": true,
+      "hover": "pointer",
+      "products": 4,
+      "cameraPresets": true,
+      "backCanvas": 1
+    }
+  ],
+  "navigation": [
+    {
+      "route": "/stores/yunchang-store/",
+      "geometries": 50,
+      "textures": 28,
+      "heap": 93827244
+    },
+    {
+      "route": "/stores/jijian-store/",
+      "geometries": 53,
+      "textures": 28,
+      "heap": 59318522
+    },
+    {
+      "route": "/stores/qinghe-store/",
+      "geometries": 76,
+      "textures": 29,
+      "heap": 76920364
+    },
+    {
+      "route": "/stores/yunchang-store/",
+      "geometries": 50,
+      "textures": 28,
+      "heap": 90072661
+    },
+    {
+      "route": "/stores/jijian-store/",
+      "geometries": 53,
+      "textures": 28,
+      "heap": 103456005
+    },
+    {
+      "route": "/stores/qinghe-store/",
+      "geometries": 76,
+      "textures": 29,
+      "heap": 115123527
+    },
+    {
+      "route": "/stores/yunchang-store/",
+      "geometries": 50,
+      "textures": 28,
+      "heap": 38490608
+    },
+    {
+      "route": "/stores/jijian-store/",
+      "geometries": 53,
+      "textures": 28,
+      "heap": 50945206
+    },
+    {
+      "route": "/stores/qinghe-store/",
+      "geometries": 76,
+      "textures": 29,
+      "heap": 62433823
+    },
+    {
+      "route": "/stores/yunchang-store/",
+      "geometries": 50,
+      "textures": 28,
+      "heap": 40728025
+    }
+  ],
+  "resources": [
+    {
+      "style": "gallery",
+      "geometries": 52,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "garden",
+      "geometries": 75,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "atelier",
+      "geometries": 49,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "gallery",
+      "geometries": 52,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "garden",
+      "geometries": 75,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "atelier",
+      "geometries": 49,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "gallery",
+      "geometries": 52,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "garden",
+      "geometries": 75,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "atelier",
+      "geometries": 49,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "gallery",
+      "geometries": 52,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "garden",
+      "geometries": 75,
+      "textures": 28,
+      "reflectors": 1
+    },
+    {
+      "style": "atelier",
+      "geometries": 49,
+      "textures": 28,
+      "reflectors": 1
+    }
+  ],
+  "preview": {
+    "version": 2,
+    "template": "minimal",
+    "style": "gallery",
+    "layout": "island",
+    "dimensions": {
+      "width": 14,
+      "depth": 11,
+      "height": 5
+    },
+    "palette": {
+      "wall": "#B5C9DD",
+      "floor": "#73899F",
+      "accent": "#8EDFF5",
+      "sign": "#172334"
+    },
+    "lighting": "cool",
+    "seed": 861,
+    "store": {
+      "name": "织界未来店",
+      "slug": "preview",
+      "tagline": "以参数，构建下一座世界",
+      "factory": "云裳制衣"
+    },
+    "products": [
+      {
+        "id": 2,
+        "name": "廓形风衣",
+        "description": "",
+        "price": "699.00",
+        "stock": 18,
+        "sizes": [
+          "S",
+          "M",
+          "L"
+        ],
+        "colors": [
+          "#8C5A4A",
+          "#C7B29D"
+        ],
+        "color": "#8C5A4A",
+        "image": "/static/img/products/YC-002.png"
+      },
+      {
+        "id": 4,
+        "name": "真丝方领连衣裙",
+        "description": "",
+        "price": "899.00",
+        "stock": 12,
+        "sizes": [
+          "S",
+          "M"
+        ],
+        "colors": [
+          "#B23A48",
+          "#E6D2C1"
+        ],
+        "color": "#B23A48",
+        "image": "/static/img/products/YC-004.png"
+      },
+      {
+        "id": 1,
+        "name": "立领亚麻衬衫",
+        "description": "",
+        "price": "299.00",
+        "stock": 30,
+        "sizes": [
+          "S",
+          "M",
+          "L"
+        ],
+        "colors": [
+          "#C98E86",
+          "#E8D8C8"
+        ],
+        "color": "#C98E86",
+        "image": "/static/img/products/YC-001.png"
+      },
+      {
+        "id": 3,
+        "name": "高腰阔腿裤",
+        "description": "",
+        "price": "399.00",
+        "stock": 26,
+        "sizes": [
+          "S",
+          "M",
+          "L"
+        ],
+        "colors": [
+          "#2B2B2B",
+          "#A58C78"
+        ],
+        "color": "#2B2B2B",
+        "image": "/static/img/products/YC-003.png"
+      }
+    ]
+  },
+  "published": {
+    "version": 2,
+    "template": "minimal",
+    "style": "gallery",
+    "layout": "island",
+    "dimensions": {
+      "width": 14,
+      "depth": 11,
+      "height": 5
+    },
+    "palette": {
+      "wall": "#B5C9DD",
+      "floor": "#73899F",
+      "accent": "#8EDFF5",
+      "sign": "#172334"
+    },
+    "lighting": "cool",
+    "seed": 861,
+    "store": {
+      "name": "织界未来店",
+      "slug": "yunchang-store-70b1f4",
+      "tagline": "以参数，构建下一座世界",
+      "factory": "云裳制衣"
+    },
+    "products": [
+      {
+        "id": 21,
+        "name": "廓形风衣",
+        "description": "",
+        "price": "699.00",
+        "stock": 18,
+        "sizes": [
+          "S",
+          "M",
+          "L"
+        ],
+        "colors": [
+          "#8C5A4A",
+          "#C7B29D"
+        ],
+        "color": "#8C5A4A",
+        "image": "/static/img/products/YC-002.png"
+      },
+      {
+        "id": 22,
+        "name": "真丝方领连衣裙",
+        "description": "",
+        "price": "899.00",
+        "stock": 12,
+        "sizes": [
+          "S",
+          "M"
+        ],
+        "colors": [
+          "#B23A48",
+          "#E6D2C1"
+        ],
+        "color": "#B23A48",
+        "image": "/static/img/products/YC-004.png"
+      },
+      {
+        "id": 23,
+        "name": "立领亚麻衬衫",
+        "description": "",
+        "price": "299.00",
+        "stock": 31,
+        "sizes": [
+          "S",
+          "M",
+          "L"
+        ],
+        "colors": [
+          "#C98E86",
+          "#E8D8C8"
+        ],
+        "color": "#C98E86",
+        "image": "/static/img/products/YC-001.png"
+      },
+      {
+        "id": 24,
+        "name": "高腰阔腿裤",
+        "description": "",
+        "price": "399.00",
+        "stock": 26,
+        "sizes": [
+          "S",
+          "M",
+          "L"
+        ],
+        "colors": [
+          "#2B2B2B",
+          "#A58C78"
+        ],
+        "color": "#2B2B2B",
+        "image": "/static/img/products/YC-003.png"
+      }
+    ]
+  },
+  "empty": 0,
+  "district": {
+    "count": 4,
+    "visiblePins": 4,
+    "destinations": 4
+  },
+  "tourResets": true,
+  "dragStays": true,
+  "errors": [],
+  "failed": []
+}

@@ -1,0 +1,437 @@
+{
+  "results": [
+    {
+      "route": "/",
+      "mode": "high",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "canvas": [
+        1440,
+        928
+      ],
+      "fps": 54.333333333333336,
+      "p95ms": 33.30000000000018,
+      "draw": {
+        "calls": 194,
+        "callsRange": [
+          194,
+          373
+        ],
+        "triangles": 125191,
+        "trianglesRange": [
+          125191,
+          250318
+        ]
+      },
+      "memory": {
+        "geometries": 182,
+        "textures": 42
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": 4
+    },
+    {
+      "route": "/stores/yunchang-store/",
+      "mode": "high",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "canvas": [
+        1440,
+        928
+      ],
+      "fps": 59.99800006666445,
+      "p95ms": 16.800000000000182,
+      "draw": {
+        "calls": 109,
+        "callsRange": [
+          109,
+          109
+        ],
+        "triangles": 72812,
+        "trianglesRange": [
+          72812,
+          72812
+        ]
+      },
+      "memory": {
+        "geometries": 49,
+        "textures": 27
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": null
+    },
+    {
+      "route": "/stores/jijian-store/",
+      "mode": "high",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "canvas": [
+        1440,
+        928
+      ],
+      "fps": 60.00132599615461,
+      "p95ms": 16.899999999999636,
+      "draw": {
+        "calls": 117,
+        "callsRange": [
+          117,
+          117
+        ],
+        "triangles": 65404,
+        "trianglesRange": [
+          65404,
+          65404
+        ]
+      },
+      "memory": {
+        "geometries": 53,
+        "textures": 28
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": null
+    },
+    {
+      "route": "/stores/qinghe-store/",
+      "mode": "high",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "canvas": [
+        1440,
+        928
+      ],
+      "fps": 59.99800006666444,
+      "p95ms": 16.899999999999636,
+      "draw": {
+        "calls": 160,
+        "callsRange": [
+          160,
+          160
+        ],
+        "triangles": 112522,
+        "trianglesRange": [
+          112522,
+          112522
+        ]
+      },
+      "memory": {
+        "geometries": 75,
+        "textures": 28
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": null
+    },
+    {
+      "route": "/builder/",
+      "mode": "high",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "canvas": [
+        1070,
+        928
+      ],
+      "fps": 60.00530433629493,
+      "p95ms": 16.90000000000009,
+      "draw": {
+        "calls": 107,
+        "callsRange": [
+          107,
+          107
+        ],
+        "triangles": 72692,
+        "trianglesRange": [
+          72692,
+          72692
+        ]
+      },
+      "memory": {
+        "geometries": 49,
+        "textures": 27
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": null
+    },
+    {
+      "route": "/",
+      "mode": "high",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "canvas": [
+        1920,
+        1008
+      ],
+      "fps": 54.331522282590576,
+      "p95ms": 33.30000000000018,
+      "draw": {
+        "calls": 194,
+        "callsRange": [
+          194,
+          373
+        ],
+        "triangles": 125191,
+        "trianglesRange": [
+          125191,
+          250318
+        ]
+      },
+      "memory": {
+        "geometries": 182,
+        "textures": 42
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": 4
+    },
+    {
+      "route": "/",
+      "mode": "cinematic",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "canvas": [
+        1920,
+        1008
+      ],
+      "fps": 45.66514449518349,
+      "p95ms": 33.400000000001455,
+      "draw": {
+        "calls": 173,
+        "callsRange": [
+          161,
+          199
+        ],
+        "triangles": 147588,
+        "trianglesRange": [
+          141116,
+          154664
+        ]
+      },
+      "memory": {
+        "geometries": 182,
+        "textures": 42
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": 4
+    },
+    {
+      "route": "/",
+      "mode": "smooth",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "canvas": [
+        1632,
+        856
+      ],
+      "fps": 59,
+      "p95ms": 16.900000000001455,
+      "draw": {
+        "calls": 179,
+        "callsRange": [
+          179,
+          179
+        ],
+        "triangles": 125127,
+        "trianglesRange": [
+          125127,
+          125127
+        ]
+      },
+      "memory": {
+        "geometries": 182,
+        "textures": 29
+      },
+      "pixelRatio": 0.85,
+      "shadow": false,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": 4
+    },
+    {
+      "route": "/stores/yunchang-store/",
+      "mode": "high",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "canvas": [
+        1920,
+        1008
+      ],
+      "fps": 59.9893941402625,
+      "p95ms": 16.90000000000009,
+      "draw": {
+        "calls": 110,
+        "callsRange": [
+          110,
+          110
+        ],
+        "triangles": 72814,
+        "trianglesRange": [
+          72814,
+          72814
+        ]
+      },
+      "memory": {
+        "geometries": 50,
+        "textures": 28
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": null
+    },
+    {
+      "route": "/stores/jijian-store/",
+      "mode": "high",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "canvas": [
+        1920,
+        1008
+      ],
+      "fps": 60.00132599615461,
+      "p95ms": 16.800000000000182,
+      "draw": {
+        "calls": 117,
+        "callsRange": [
+          117,
+          117
+        ],
+        "triangles": 65404,
+        "trianglesRange": [
+          65404,
+          65404
+        ]
+      },
+      "memory": {
+        "geometries": 53,
+        "textures": 28
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": null
+    },
+    {
+      "route": "/stores/qinghe-store/",
+      "mode": "high",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "canvas": [
+        1920,
+        1008
+      ],
+      "fps": 60.007293704207136,
+      "p95ms": 16.899999999999636,
+      "draw": {
+        "calls": 163,
+        "callsRange": [
+          163,
+          163
+        ],
+        "triangles": 112652,
+        "trianglesRange": [
+          112652,
+          112652
+        ]
+      },
+      "memory": {
+        "geometries": 76,
+        "textures": 29
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": null
+    },
+    {
+      "route": "/builder/",
+      "mode": "high",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "canvas": [
+        1550,
+        1008
+      ],
+      "fps": 60.003315100281775,
+      "p95ms": 16.800000000000182,
+      "draw": {
+        "calls": 109,
+        "callsRange": [
+          109,
+          109
+        ],
+        "triangles": 72812,
+        "trianglesRange": [
+          72812,
+          72812
+        ]
+      },
+      "memory": {
+        "geometries": 49,
+        "textures": 27
+      },
+      "pixelRatio": 1.0000000298023224,
+      "shadow": true,
+      "gpu": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics (0x0000A7A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "stores": null
+    }
+  ],
+  "errors": [],
+  "failed": [],
+  "warnings": [],
+  "measurement": {
+    "date": "2026-10-20",
+    "site": "http://10.24.116.90:3002/",
+    "published_stores": 4,
+    "warmup_seconds": 1.2,
+    "sample_seconds": 3,
+    "high": "DPR 1; planar reflection 1024 district / 768 showroom; static-camera reflection cache 100ms, immediate on camera movement; shadow 1024 static cache / walking refresh every 4 frames; bloom on",
+    "smooth": "reflection/shadow/bloom off; render pixel ratio .85",
+    "draw_stats": "median and min/max over each sample; includes all reflection, shadow and postprocessing passes"
+  }
+}

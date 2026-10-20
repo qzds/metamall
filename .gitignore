@@ -9,3 +9,5 @@ _downloads/
 *.log
 .vscode/
 .DS_Store
+/output
+.playwright-cli/

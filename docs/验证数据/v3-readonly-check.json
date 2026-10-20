@@ -1,0 +1,114 @@
+{
+  "entrances": [
+    {
+      "route": "/stores/yunchang-store/",
+      "canvasClick": true,
+      "products": 4,
+      "browserBackCanvas": 1
+    },
+    {
+      "route": "/stores/jijian-store/",
+      "canvasClick": true,
+      "products": 4,
+      "browserBackCanvas": 1
+    },
+    {
+      "route": "/stores/qinghe-store/",
+      "canvasClick": true,
+      "products": 4,
+      "browserBackCanvas": 1
+    }
+  ],
+  "samples": [
+    {
+      "route": "/stores/yunchang-store/",
+      "textures": 32,
+      "geometries": 119,
+      "heap": 29006831
+    },
+    {
+      "route": "/stores/jijian-store/",
+      "textures": 32,
+      "geometries": 106,
+      "heap": 38799859
+    },
+    {
+      "route": "/stores/qinghe-store/",
+      "textures": 33,
+      "geometries": 136,
+      "heap": 46130497
+    },
+    {
+      "route": "/stores/yunchang-store/",
+      "textures": 32,
+      "geometries": 119,
+      "heap": 26925953
+    },
+    {
+      "route": "/stores/jijian-store/",
+      "textures": 32,
+      "geometries": 106,
+      "heap": 38676116
+    },
+    {
+      "route": "/stores/qinghe-store/",
+      "textures": 33,
+      "geometries": 136,
+      "heap": 44371214
+    },
+    {
+      "route": "/stores/yunchang-store/",
+      "textures": 32,
+      "geometries": 119,
+      "heap": 30380037
+    },
+    {
+      "route": "/stores/jijian-store/",
+      "textures": 32,
+      "geometries": 106,
+      "heap": 40940904
+    },
+    {
+      "route": "/stores/qinghe-store/",
+      "textures": 33,
+      "geometries": 136,
+      "heap": 45335014
+    },
+    {
+      "route": "/stores/yunchang-store/",
+      "textures": 32,
+      "geometries": 119,
+      "heap": 34124747
+    }
+  ],
+  "district": {
+    "stores": [
+      "yunchang-store",
+      "jijian-store",
+      "qinghe-store",
+      "yunchang-store-40410c"
+    ],
+    "visiblePins": 4,
+    "destinations": 4
+  },
+  "dragStaysInDistrict": true,
+  "published": {
+    "style": "gallery",
+    "layout": "island",
+    "dimensions": {
+      "width": 14,
+      "depth": 11,
+      "height": 5
+    },
+    "lighting": "cool",
+    "seed": 861,
+    "images": [
+      "/static/img/products/YC-002.png",
+      "/static/img/products/YC-004.png",
+      "/static/img/products/YC-001.png",
+      "/static/img/products/YC-003.png"
+    ]
+  },
+  "errors": [],
+  "failed": []
+}

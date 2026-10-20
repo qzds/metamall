@@ -1,0 +1,33 @@
+{
+  "database": "independent temporary SQLite file",
+  "oversell": {
+    "requests": 8,
+    "responses": [
+      302,
+      302,
+      302,
+      302,
+      302,
+      302,
+      302,
+      302
+    ],
+    "orders": 1,
+    "stock": 0,
+    "coupon_used": 1
+  },
+  "parallel_cancellation": {
+    "requests": 4,
+    "restorations": 1,
+    "restored_stock": 1,
+    "coupon_used": 0
+  },
+  "duplicate_submission": {
+    "responses": [
+      302,
+      302
+    ],
+    "matching_orders": 1,
+    "remaining_stock": 0
+  }
+}

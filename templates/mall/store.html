@@ -1,48 +1,28 @@
-{% extends "base.html" %}
-{% load static %}
-{% block title %}{{ store.name }}{% endblock %}
+{% extends "base.html" %}{% load static %}
+{% block title %}{{ store.name }} · 沉浸式展馆{% endblock %}
+{% block body_class %}world-page store-page{% endblock %}
 {% block content %}
-<section class="store-head">
-  <div>
-    <p class="eyebrow">{{ store.factory.name }} / 3D STORE</p>
-    <h1>{{ store.name }}</h1>
-    <p class="lead">{{ store.config.tagline|default:"欢迎进店看看" }}</p>
-  </div>
-  <a class="button ghost" href="{% url 'mall:index' %}">← 返回商圈</a>
-</section>
-
-<section class="store-layout">
-  <div class="store-canvas-wrap">
-    <div id="store-canvas"></div>
-    <div class="canvas-badge">FLAGSHIP · {{ store.factory.name }}</div>
-    <p class="canvas-hint">拖动旋转 · 滚轮缩放 · 商品在下方加入购物车</p>
-  </div>
-  <aside class="store-side">
-    <p class="eyebrow">COLLECTION</p>
-    <h2>本店商品</h2>
-    {% for product in products %}
-      <div class="product-row">
-        <div class="product-thumb" style="background: {{ product.colors.0|default:'#D9D2C6' }}">
-          {% if product.image_url %}<img src="{{ product.image_url }}" alt="{{ product.name }}">{% endif %}
-        </div>
-        <div class="product-info">
-          <strong>{{ product.name }}</strong>
-          <span>¥{{ product.price }} · 库存 {{ product.stock }}</span>
-        </div>
-        <form method="post" action="{% url 'commerce:cart_add' product.id %}">
-          {% csrf_token %}
-          <input type="hidden" name="next" value="{% url 'mall:store' store.slug %}">
-          <button class="mini-button" type="submit" {% if product.stock == 0 %}disabled{% endif %}>加购</button>
-        </form>
-      </div>
-    {% empty %}
-      <p>这家店还没有商品，去后台添加吧。</p>
-    {% endfor %}
+<section class="world-stage store-stage">
+  <div id="store-canvas" class="world-canvas"></div><div class="world-vignette"></div>
+  <div class="world-loading"><span class="loading-orbit">∞</span><p>正在进入品牌世界</p></div>
+  <div class="store-identity"><a class="back-link" href="{% url 'mall:index' %}">← 返回商圈</a><p class="eyebrow">{{ store.factory.name }} / IMMERSIVE SHOWROOM</p><h1>{{ store.name }}</h1><p>{{ store.config.tagline }}</p><span class="space-pill" id="style-label">品牌沉浸式展馆</span></div>
+  <div class="world-utility"><button data-action="store-reset">⌖ 全景</button><button data-action="store-quality">画质 · 高清</button><button data-action="fullscreen">⤢ 全屏</button></div>
+  <div class="camera-presets" aria-label="展馆镜头"><button type="button" data-camera="entry">01 入口视角</button><button type="button" data-camera="collection">02 陈列视角</button><button type="button" data-camera="overview">03 建筑全景</button></div>
+  <div class="store-interaction-hint"><span>◈</span> 点击立体服装，探索本店商品</div>
+  <aside class="product-inspector" id="product-inspector" aria-label="选中商品详情" hidden>
+    <button class="inspector-close" type="button" aria-label="关闭商品详情">×</button>
+    <p class="eyebrow">THE SELECTED PIECE</p><div class="inspector-photo"><img id="selected-image" alt=""><span>品牌精选</span></div>
+    <h2 id="selected-name"></h2><p class="selected-description" id="selected-description"></p><div class="selected-price"><strong id="selected-price"></strong><span id="selected-stock"></span></div>
+    <p class="selected-sizes" id="selected-sizes"></p>
+    <form id="selected-cart-form" class="js-cart-form" method="post">{% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}"><button class="button primary" type="submit">加入购物车 <span>＋</span></button></form>
+    <button class="button subtle" id="spin-model" type="button">↻ 旋转立体陈列</button><p class="representation-note">立体陈列为款式示意，商品详情以图片为准。</p>
   </aside>
+  <div class="store-bottom">
+    <div class="collection-heading"><span>THE COLLECTION <b>{{ products|length }} 件精选</b></span><span class="scene-hint">拖动环视 · 滚轮缩放</span></div>
+    <div class="collection-dock">{% for product in products %}<div class="collection-piece"><button class="piece-select" type="button" data-product-id="{{ product.id }}">{% if product.image_url %}<img src="{{ product.image_url }}" alt="{{ product.name }}">{% endif %}<span><strong>{{ product.name }}</strong><small>¥{{ product.price }}</small></span></button><form method="post" class="js-cart-form" action="{% url 'commerce:cart_add' product.id %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}"><button class="piece-add" type="submit" aria-label="加购{{ product.name }}" {% if product.stock == 0 %}disabled{% endif %}>＋</button></form></div>{% empty %}<p class="empty-collection">展馆已落成，商品尚待上架。可在后台添加商品。</p>{% endfor %}</div>
+    <div class="coupon-strip"><span>本店礼遇</span>{% for coupon in coupons %}<form class="js-coupon-form" method="post" action="{% url 'commerce:coupon_claim' coupon.code %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.path }}"><button type="submit">{{ coupon.name }} <b>领取 ↗</b></button></form>{% endfor %}<a href="{% url 'commerce:cart' %}">前往结算 →</a></div>
+  </div>
 </section>
-
 {{ scene|json_script:"store-scene" }}
 {% endblock %}
-{% block scripts %}
-<script type="module" src="{% static 'js/store.js' %}"></script>
-{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'js/store.js' %}"></script>{% endblock %}

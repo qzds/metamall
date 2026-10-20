@@ -43,7 +43,10 @@ class Coupon(models.Model):
             and (self.usage_limit == 0 or self.used_count < self.usage_limit)
         )
 
-    def calculate_discount(self, subtotal, store_ids=None):
+    def calculate_discount(self, subtotal, store_ids=None, *, eligible_subtotal=None):
+        # A store coupon only discounts that store's merchandise, including its threshold.
+        if self.store_id and eligible_subtotal is not None:
+            subtotal = eligible_subtotal
         subtotal = Decimal(subtotal)
         if subtotal < self.min_spend:
             return Decimal("0.00")

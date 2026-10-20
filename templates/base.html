@@ -2,47 +2,33 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}元宇宙商圈{% endblock %} · ERP 1.7</title>
-  <link rel="stylesheet" href="{% static 'css/app.css' %}">
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "{% static 'vendor/three/build/three.module.js' %}",
-        "three/addons/": "{% static 'vendor/three/examples/jsm/' %}"
-      }
-    }
-  </script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111b2e">
+  <title>{% block title %}元宇宙商圈{% endblock %} · METAMALL</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}?v=3">
+  <script type="importmap">{"imports":{"three":"{% static 'vendor/three/build/three.module.js' %}","three/addons/":"{% static 'vendor/three/examples/jsm/' %}"}}</script>
+  <link rel="stylesheet" href="{% static 'css/world.css' %}?v=4">
   {% block head %}{% endblock %}
 </head>
-<body>
-  <div class="page-veil"><span>METAMALL</span></div>
+<body class="{% block body_class %}content-page{% endblock %}">
   <header class="nav">
-    <a class="brand" href="{% url 'mall:index' %}">METAMALL<span>·</span></a>
-    <nav>
-      <a href="{% url 'mall:index' %}">商圈</a>
-      <a href="{% url 'mall:builder' %}">建店器</a>
-      <a href="{% url 'commerce:cart' %}">购物车</a>
-      <a href="/admin/">后台</a>
+    <a class="brand" href="{% url 'mall:index' %}" aria-label="METAMALL 元宇宙商圈首页"><span class="brand-orbit">∞</span> METAMALL<span class="brand-edition">THE FASHION DISTRICT</span></a>
+    <nav aria-label="页面导航">
+      <a href="{% url 'mall:index' %}">探索商圈</a>
+      <a href="{% url 'mall:builder' %}">建造展馆</a>
+      <a href="{% url 'commerce:cart' %}">购物车 <span class="cart-count" data-cart-count>{{ cart_count }}</span></a>
+      <a href="{% url 'commerce:orders' %}">我的订单</a>
+      <a class="admin-link" href="/admin/" target="_blank" rel="noopener">管理后台 ↗</a>
     </nav>
   </header>
-
   <main>
-    {% if messages %}
-      <div class="messages">
-        {% for message in messages %}
-          <div class="message {{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-      </div>
-    {% endif %}
+    {% if messages %}<div class="messages" role="status">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
     {% block content %}{% endblock %}
   </main>
-
-  <footer class="footer">
-    <span>ERP 1.7 · 元宇宙商圈 · v2 MVP</span>
-    <span>Django + Three.js + SQLite</span>
-  </footer>
+  <footer class="footer"><span>METAMALL · 虚拟空间，真实制造</span><span>ERP 课程 · 题目 1.7</span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script type="module" src="{% static 'js/ui.js' %}"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,19 @@
+记录日期：2026-10-20
+工作目录：D:\Desktop\大四上\ERP\project\metamall
+
+命令：.venv\Scripts\python.exe manage.py test
+实际输出：
+Creating test database for alias 'default'...
+.......................
+Ran 23 tests in 0.367s
+OK
+Destroying test database for alias 'default'...
+Found 23 test(s).
+System check identified no issues (0 silenced).
+
+命令：.venv\Scripts\python.exe manage.py makemigrations --check --dry-run
+实际输出：
+No changes detected
+
+测试在独立测试数据库中执行，不修改演示订单、库存或券。
+并发文件数据库验证见 v3-concurrency.json 和 scripts/verify_concurrency.py。

@@ -1,32 +1,23 @@
-{% extends "base.html" %}
-{% load static %}
-{% block title %}建店器{% endblock %}
+﻿{% extends "base.html" %}{% load static %}
+{% block title %}展馆建造器{% endblock %}
+{% block body_class %}builder-page{% endblock %}
 {% block content %}
-<section class="page-head">
-  <p class="eyebrow">AUTO STORE BUILDER</p>
-  <h1>现场建一家店</h1>
-  <p class="lead">改模板、品牌色、店名和商品，右侧的 3D 店铺实时变化；发布后立刻出现在商圈。</p>
+<section class="builder-workspace">
+  <aside class="builder-panel">
+    <a class="back-link" href="{% url 'mall:index' %}">← 返回商圈</a><p class="eyebrow">CREATE YOUR OWN WORLD</p><h1>下一座世界，<br>由你定义。</h1><p class="builder-intro">从品牌到空间，让想象实时发生。</p>
+    <div class="builder-tabs" role="tablist" aria-label="建造步骤"><button type="button" role="tab" aria-selected="true" data-step="0"><span>01</span>品牌</button><button type="button" role="tab" aria-selected="false" data-step="1"><span>02</span>空间</button><button type="button" role="tab" aria-selected="false" data-step="2"><span>03</span>商品</button></div>
+    <form id="builder-form" method="post" novalidate data-preview-url="{% url 'mall:builder_preview' %}">{% csrf_token %}{{ form.non_field_errors }}
+      <div class="builder-step" data-panel="0"><label for="{{ form.factory.id_for_label }}">所属工厂{{ form.factory }}</label>{{ form.factory.errors }}<label for="{{ form.name.id_for_label }}">店铺名称{{ form.name }}</label>{{ form.name.errors }}<label for="{{ form.tagline.id_for_label }}">品牌标语{{ form.tagline }}</label>{{ form.tagline.errors }}<label for="{{ form.accent.id_for_label }}">品牌色<div class="color-control"><input id="accent-picker" type="color" aria-label="品牌色选择器" value="#ED9276">{{ form.accent }}</div></label>{{ form.accent.errors }}<p class="field-note">店名、色彩和标语将进入真实的三维空间。</p></div>
+      <div class="builder-step" data-panel="1" hidden>
+        <div class="style-presets"><button type="button" data-preset="atelier">织光庭院</button><button type="button" data-preset="gallery">零度艺廊</button><button type="button" data-preset="garden">森屿温室</button></div>
+        <label for="{{ form.style.id_for_label }}">建筑风格{{ form.style }}</label>{{ form.style.errors }}<div class="field-pair"><label for="{{ form.template.id_for_label }}">空间基底{{ form.template }}</label><label for="{{ form.layout.id_for_label }}">陈列布局{{ form.layout }}</label></div>{{ form.template.errors }}{{ form.layout.errors }}<div class="field-pair"><label for="{{ form.width.id_for_label }}">宽度 / m{{ form.width }}</label><label for="{{ form.depth.id_for_label }}">进深 / m{{ form.depth }}</label></div>{{ form.width.errors }}{{ form.depth.errors }}<label for="{{ form.lighting.id_for_label }}">灯光氛围{{ form.lighting }}</label>{{ form.lighting.errors }}<label for="{{ form.seed.id_for_label }}">装置种子{{ form.seed }}</label>{{ form.seed.errors }}<p class="field-note">相同的配置会生成相同的布局与装置。</p>
+      </div>
+      <div class="builder-step" data-panel="2" hidden><label for="{{ form.source_store.id_for_label }}">商品来源{{ form.source_store }}</label>{{ form.source_store.errors }}<div class="publish-summary"><p class="eyebrow">READY TO OPEN</p><h2 id="publish-name">你的新展馆</h2><p id="publish-summary">空间正在生成</p><small>不选择来源，将发布一座空展馆。商品图片、价格和库存随商品一并复制。</small></div><button class="button primary publish-button" type="submit">生成并发布展馆 ↗</button></div>
+      <div class="builder-step-nav"><button class="button subtle" type="button" id="previous-step" hidden>← 上一步</button><button class="button primary" type="button" id="next-step">继续：空间设计 →</button></div>
+    </form>
+  </aside>
+  <div class="builder-viewport"><div id="builder-canvas" class="world-canvas"></div><div class="preview-topline"><span><i class="status-dot"></i> 实时空间预览</span><span id="preview-status" role="status">已同步</span></div><div class="builder-preview-title"><span id="preview-style">THE NEW WORLD</span><h2 id="preview-name">你的新展馆</h2></div><div class="preview-controls"><button type="button" data-action="builder-reset">⌖ 全景</button><button type="button" data-action="builder-quality">画质 · 高清</button></div><div class="preview-bottomline"><span id="preview-dimensions"></span><span>拖动环视 · 滚轮缩放</span></div></div>
 </section>
-
-<section class="builder-layout">
-  <form class="form-card" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="button" type="submit">生成并发布</button>
-    <p class="muted small">商品来自来源店铺；发布后可在 Django Admin 继续调整。</p>
-  </form>
-  <div class="builder-preview">
-    <div id="builder-canvas"></div>
-    <div class="preview-label">LIVE PREVIEW</div>
-    <p class="canvas-hint">模板 / 品牌色 / 店名 / 商品，右侧实时更新</p>
-    <div class="preview-chips">
-      <span>配置驱动</span><span>增量更新</span><span>发布即入商圈</span>
-    </div>
-  </div>
-</section>
-
-{{ preview_stores|json_script:"builder-data" }}
+{{ scene|json_script:"builder-data" }}
 {% endblock %}
-{% block scripts %}
-<script type="module" src="{% static 'js/builder.js' %}"></script>
-{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'js/builder.js' %}"></script>{% endblock %}

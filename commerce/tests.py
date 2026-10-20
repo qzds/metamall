@@ -95,3 +95,123 @@ class CommerceFlowTests(TestCase):
         self.assertEqual(Order.objects.count(), 0)
         self.coupon.refresh_from_db()
         self.assertEqual(self.coupon.used_count, 0)
+
+    def _other_product(self):
+        store = Store.objects.create(factory=self.factory, name="其他店", slug="other-store")
+        return Product.objects.create(store=store, name="其他店商品", sku="O-1", price="900.00", stock=5)
+
+    def test_mixed_cart_cannot_reach_store_coupon_threshold_with_other_store(self):
+        other = self._other_product()
+        self.coupon.store = self.store
+        self.coupon.min_spend = Decimal("299")
+        self.coupon.save()
+        self.client.post(f"/cart/add/{self.product.id}/")
+        self.client.post(f"/cart/add/{other.id}/")
+        self._checkout()
+        self.assertEqual(Order.objects.count(), 0)
+        self.product.refresh_from_db()
+        self.assertEqual(self.product.stock, 5)
+
+    def test_store_percentage_coupon_only_discounts_eligible_store(self):
+        other = self._other_product()
+        self.coupon.store = self.store
+        self.coupon.kind = "percent"
+        self.coupon.value = Decimal("10")
+        self.coupon.save()
+        self.client.post(f"/cart/add/{self.product.id}/")
+        self.client.post(f"/cart/add/{other.id}/")
+        self._checkout()
+        order = Order.objects.get()
+        self.assertEqual(order.discount, Decimal("19.90"))
+        self.assertEqual(order.total, Decimal("1079.10"))
+
+    def test_invalid_expired_wrong_store_and_exhausted_coupons(self):
+        self.client.post(f"/cart/add/{self.product.id}/")
+        self._checkout(coupon="UNKNOWN")
+        self.assertEqual(Order.objects.count(), 0)
+        self.coupon.valid_to = timezone.now() - timedelta(seconds=1)
+        self.coupon.save()
+        self._checkout()
+        self.assertEqual(Order.objects.count(), 0)
+        self.coupon.valid_to = timezone.now() + timedelta(days=1)
+        self.coupon.used_count = self.coupon.usage_limit
+        self.coupon.save()
+        self._checkout()
+        self.assertEqual(Order.objects.count(), 0)
+        other = self._other_product()
+        self.coupon.used_count = 0
+        self.coupon.store = other.store
+        self.coupon.save()
+        self._checkout()
+        self.assertEqual(Order.objects.count(), 0)
+
+    def test_stock_failure_rolls_back_the_whole_order_and_coupon(self):
+        other = self._other_product()
+        self.client.post(f"/cart/add/{other.id}/")
+        self.client.post(f"/cart/add/{self.product.id}/")
+        self.product.stock = 0
+        self.product.save(update_fields=["stock"])
+        self._checkout()
+        other.refresh_from_db()
+        self.coupon.refresh_from_db()
+        self.assertEqual(other.stock, 5)
+        self.assertEqual(self.coupon.used_count, 0)
+        self.assertEqual(Order.objects.count(), 0)
+
+    def test_quantity_update_validates_stock_and_positive_quantity(self):
+        self.client.post(f"/cart/add/{self.product.id}/")
+        self.client.post(f"/cart/update/{self.product.id}/", {"qty": 3})
+        self.assertEqual(self.client.session["cart"][str(self.product.id)], 3)
+        for qty in [0, -1, 6, "bad"]:
+            self.client.post(f"/cart/update/{self.product.id}/", {"qty": qty})
+            self.assertEqual(self.client.session["cart"][str(self.product.id)], 3)
+
+    def test_another_session_cannot_read_pay_cancel_or_reuse_order_token(self):
+        self.client.post(f"/cart/add/{self.product.id}/")
+        self._checkout()
+        order = Order.objects.get()
+        other = Client(SERVER_NAME="localhost")
+        for suffix in ["", "pay/", "cancel/"]:
+            url = f"/orders/{order.order_no}/{suffix}"
+            response = other.get(url) if not suffix else other.post(url)
+            self.assertEqual(response.status_code, 404)
+        response = other.post("/checkout/", {"client_token": order.client_token})
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(self.client.get(f"/orders/{order.order_no}/").status_code, 200)
+
+    def test_coupon_preview_does_not_consume_stock_or_coupon(self):
+        self.client.post(f"/cart/add/{self.product.id}/")
+        response = self.client.post("/coupons/preview/", {"coupon_code": "TEST30"})
+        self.assertEqual(response.json()["discount"], "30.00")
+        self.product.refresh_from_db()
+        self.coupon.refresh_from_db()
+        self.assertEqual(self.product.stock, 5)
+        self.assertEqual(self.coupon.used_count, 0)
+        self.assertEqual(Order.objects.count(), 0)
+
+    def test_claim_is_session_scoped_and_does_not_redeem(self):
+        self.client.post("/coupons/claim/TEST30/")
+        self.client.post("/coupons/claim/TEST30/")
+        self.assertEqual(self.client.session["coupon_wallet"], ["TEST30"])
+        self.coupon.refresh_from_db()
+        self.assertEqual(self.coupon.used_count, 0)
+
+    def test_cart_add_ajax_avoids_reloading_3d_scene(self):
+        response = self.client.post(f"/cart/add/{self.product.id}/", HTTP_ACCEPT="application/json")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["count"], 1)
+
+    def test_admin_cancellation_uses_same_one_time_restoration(self):
+        from django.contrib import admin
+        from .services import cancel_order
+        from .admin import OrderAdmin
+        self.client.post(f"/cart/add/{self.product.id}/")
+        self._checkout()
+        order = Order.objects.get()
+        self.assertIn("status", OrderAdmin.readonly_fields)
+        self.assertTrue(cancel_order(order))
+        self.assertFalse(cancel_order(order))
+        self.product.refresh_from_db()
+        self.coupon.refresh_from_db()
+        self.assertEqual(self.product.stock, 5)
+        self.assertEqual(self.coupon.used_count, 0)

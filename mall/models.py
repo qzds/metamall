@@ -70,46 +70,8 @@ class Store(models.Model):
         return product.image_url if product else ""
 
     def build_scene(self):
-        defaults = TEMPLATE_DEFAULTS.get(self.template, TEMPLATE_DEFAULTS["boutique"])
-        cfg = dict(defaults)
-        cfg.update(self.config or {})
-        palette = dict(defaults["palette"])
-        palette.update((self.config or {}).get("palette", {}))
-        width = float(cfg.get("width", defaults["width"]))
-        depth = float(cfg.get("depth", defaults["depth"]))
-        height = float(cfg.get("height", defaults["height"]))
-        products = []
-        for index, product in enumerate(self.products.filter(is_active=True)[:12]):
-            color = product.colors[0] if product.colors else palette["accent"]
-            products.append(
-                {
-                    "id": product.id,
-                    "name": product.name,
-                    "price": str(product.price),
-                    "color": color,
-                    "image": product.image_url,
-                    "slot": index % 8,
-                    "position": [
-                        -width / 2 + 1.6 + (index % 4) * 2.7,
-                        1.7,
-                        -depth / 2 + 0.55,
-                    ],
-                }
-            )
-        return {
-            "version": 1,
-            "store": {
-                "name": self.name,
-                "slug": self.slug,
-                "tagline": cfg.get("tagline", ""),
-                "factory": self.factory.name,
-            },
-            "template": self.template,
-            "dimensions": {"width": width, "depth": depth, "height": height},
-            "palette": palette,
-            "lighting": cfg.get("lighting", "warm"),
-            "products": products,
-        }
+        from .scene import build_scene_spec
+        return build_scene_spec(self)
 
 
 class Product(models.Model):
@@ -134,6 +96,6 @@ class Product(models.Model):
 
     @property
     def image_url(self):
-        if not self.image_name:
-            return ""
-        return f"{settings.STATIC_URL}img/products/{self.image_name}"
+        if self.image:
+            return self.image.url
+        return f"{settings.STATIC_URL}img/products/{self.image_name}" if self.image_name else ""

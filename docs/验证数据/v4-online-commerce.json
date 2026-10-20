@@ -1,0 +1,21 @@
+{
+  "before": [
+    0,
+    0.075,
+    13
+  ],
+  "after": [
+    -14.819999999999983,
+    0.075,
+    -1.756539999999993
+  ],
+  "walkEnteredCloud": true,
+  "selected": "立领亚麻衬衫",
+  "quantityTwo": "2",
+  "orderUrl": "http://10.24.116.90:3002/orders/D6A336C0B6DC/",
+  "orderText": "模拟支付成功。\n\nORDER / D6A336C0B6DC\n\n订单 D6A336C0B6DC\n\n状态：已支付 · 2026-10-20 23:28\n\n商品\n立领亚麻衬衫 × 1\n¥299.00\n小计\n¥299.00\n优惠 WELCOME30\n-¥30.00\n实付\n¥269.00\n取消订单\n\nSHIP TO\n\n课程演示\n\n00000000000\n\n厦门大学 · 课程模拟订单，不发货\n\n演示订单，不会真实发货；库存/优惠券已按订单状态处理。\n\n继续逛商圈 →",
+  "durationSeconds": 26.763,
+  "adminTitle": "选择 coupon 来修改 | METAMALL 管理",
+  "errors": [],
+  "failed": []
+}

@@ -48,6 +48,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "commerce.context_processors.cart_count",
             ],
         },
     },
@@ -86,3 +87,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = "/admin/login/"
+
+# Separate cookies let the presentation release coexist with the old demo port.
+SESSION_COOKIE_NAME = os.environ.get("DJANGO_SESSION_COOKIE_NAME", "sessionid")
+CSRF_COOKIE_NAME = os.environ.get("DJANGO_CSRF_COOKIE_NAME", "csrftoken")
+# COOP is ignored on a plain HTTP LAN origin. HTTPS keeps Django's default.
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None if os.environ.get("DJANGO_DEMO_HTTP") == "1" else "same-origin"

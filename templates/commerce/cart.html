@@ -1,54 +1,12 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}{% load static %}
 {% block title %}购物车{% endblock %}
 {% block content %}
-<section class="page-head">
-  <p class="eyebrow">CART / CHECKOUT</p>
-  <h1>购物车</h1>
-  <p class="lead">访客结算；优惠券在提交订单时校验，库存用条件更新扣减。</p>
-</section>
-
+<section class="page-head"><p class="eyebrow">YOUR SELECTION / CHECKOUT</p><h1>把心动，带回现实。</h1><p class="lead">确认你的品牌精选，使用礼遇券，完成一次模拟购物。</p></section>
 {% if rows %}
 <section class="cart-layout">
-  <div class="cart-main">
-    {% for row in rows %}
-      <div class="cart-row">
-        <div class="product-thumb" style="background: {{ row.product.colors.0|default:'#D9D2C6' }}">
-          {% if row.product.image_url %}<img src="{{ row.product.image_url }}" alt="{{ row.product.name }}">{% endif %}
-        </div>
-        <div class="product-info">
-          <strong>{{ row.product.name }}</strong>
-          <span>{{ row.product.store.name }} · ¥{{ row.product.price }} × {{ row.qty }}</span>
-        </div>
-        <strong>¥{{ row.line_total }}</strong>
-        <form method="post" action="{% url 'commerce:cart_remove' row.product.id %}">
-          {% csrf_token %}
-          <button class="text-button" type="submit">移除</button>
-        </form>
-      </div>
-    {% endfor %}
-    <div class="cart-total">
-      <span>商品小计</span>
-      <strong>¥{{ subtotal }}</strong>
-    </div>
-  </div>
-
-  <form class="form-card checkout-card" method="post" action="{% url 'commerce:checkout' %}">
-    {% csrf_token %}
-    <input type="hidden" name="client_token" value="{{ client_token }}">
-    <h2>结算信息</h2>
-    <label>收货人<input name="customer_name" required maxlength="80" placeholder="例如：张三"></label>
-    <label>电话<input name="phone" required maxlength="30" placeholder="用于演示，不会真实发货"></label>
-    <label>地址<input name="address" required maxlength="240" placeholder="例如：厦门大学 xx 宿舍"></label>
-    <label>优惠券（可选）<input name="coupon_code" maxlength="40" placeholder="WELCOME30"></label>
-    <p class="muted small">可用演示券：WELCOME30（满 199 减 30）、MINT50（极简工坊满 399 减 50）、QINGHE10（青禾 9 折）。</p>
-    <button class="button" type="submit">提交订单（模拟支付）</button>
-  </form>
+  <div class="cart-main">{% for row in rows %}<div class="cart-row"><div class="product-thumb">{% if row.product.image_url %}<img src="{{ row.product.image_url }}" alt="{{ row.product.name }}">{% endif %}</div><div class="product-info"><strong>{{ row.product.name }}</strong><span>{{ row.product.store.name }} · ¥{{ row.product.price }}</span><form class="quantity-form" method="post" action="{% url 'commerce:cart_update' row.product.id %}">{% csrf_token %}<label class="sr-only" for="qty-{{ row.product.id }}">{{ row.product.name }}数量</label><input id="qty-{{ row.product.id }}" name="qty" type="number" min="1" max="{{ row.product.stock }}" value="{{ row.qty }}" required><button type="submit">更新</button></form></div><div class="cart-row-actions"><strong>¥{{ row.line_total }}</strong><form method="post" action="{% url 'commerce:cart_remove' row.product.id %}">{% csrf_token %}<button class="text-button" type="submit">移除</button></form></div></div>{% endfor %}<div class="cart-total"><span>商品小计</span><strong>¥{{ subtotal }}</strong></div><p class="small muted" style="margin:22px 0 0">本次为课程模拟交易，不会真实扣款或发货。</p></div>
+  <form class="form-card checkout-card" id="checkout-form" method="post" action="{% url 'commerce:checkout' %}" data-coupon-preview="{% url 'commerce:coupon_preview' %}">{% csrf_token %}<input type="hidden" name="client_token" value="{{ client_token }}"><h2>配送与结算</h2><label>收货人<input name="customer_name" required maxlength="80" autocomplete="name" value="{{ draft.customer_name }}" placeholder="你的称呼"></label><label>联系电话<input name="phone" required maxlength="30" autocomplete="tel" value="{{ draft.phone }}" placeholder="仅用于模拟订单"></label><label>收货地址<input name="address" required maxlength="240" autocomplete="street-address" value="{{ draft.address }}" placeholder="例如：厦门大学学生公寓"></label><label>礼遇券码<input name="coupon_code" id="coupon-code" maxlength="40" value="{{ draft.coupon_code }}" placeholder="WELCOME30"></label><div class="coupon-options">{% for coupon in coupons %}<button type="button" data-coupon="{{ coupon.code }}" title="{{ coupon.name }}">{{ coupon.code }}{% if coupon.code in wallet %} ✓{% endif %}</button>{% endfor %}</div><p id="coupon-result" class="coupon-preview" role="status" hidden></p><p class="small muted">店铺专属券仅计算该店商品金额，满减门槛也按该店小计判断。</p><button class="button primary" type="submit">创建订单，前往模拟支付 →</button></form>
 </section>
-{% else %}
-<section class="empty-state">
-  <h2>购物车是空的</h2>
-  <p>先回商圈逛逛，进店选一件。</p>
-  <a class="button" href="{% url 'mall:index' %}">回商圈</a>
-</section>
-{% endif %}
+{% else %}<section class="empty-state"><div class="empty-orbit">∞</div><h2>新的发现，还在前方。</h2><p>进入品牌展馆，选择一件心动的商品。</p><a class="button primary" href="{% url 'mall:index' %}">返回商圈探索 ↗</a></section>{% endif %}
 {% endblock %}
+{% block scripts %}<script type="module" src="{% static 'js/cart.js' %}"></script>{% endblock %}

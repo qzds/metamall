@@ -1,74 +1,60 @@
-import { createStoreScene } from './store-core.js';
-
+﻿import { createStoreScene } from './store-core.js';
+import { THEMES } from './scene-kit.js';
 const host = document.getElementById('builder-canvas');
-const dataEl = document.getElementById('builder-data');
-if (host && dataEl) {
-  const stores = JSON.parse(dataEl.textContent);
-  const form = host.closest('.builder-layout')?.querySelector('form');
-  const nameInput = document.getElementById('id_name');
-  const taglineInput = document.getElementById('id_tagline');
-  const templateInput = document.getElementById('id_template');
-  const accentInput = document.getElementById('id_accent');
-  const sourceInput = document.getElementById('id_source_store');
-
-  const FALLBACK = [
-    { name: '立领亚麻衬衫', color: '#C98E86', image: '' },
-    { name: '廓形风衣', color: '#8C5A4A', image: '' },
-    { name: '高腰阔腿裤', color: '#2B2B2B', image: '' },
-    { name: '真丝方领连衣裙', color: '#B23A48', image: '' },
-  ];
-
-  function firstStore() {
-    return Object.values(stores)[0] || null;
+if (host) {
+  const form = document.getElementById('builder-form'), status = document.getElementById('preview-status');
+  const initial = JSON.parse(document.getElementById('builder-data').textContent);
+  let preview, timer, controller, sequence = 0, step = 0, publishing = false;
+  try { if (initial) preview = createStoreScene(host, initial, { pixelRatio: 1.2, interactive: false }); window.__METAMALL__ = preview; }
+  catch (error) { console.error(error); status.textContent = '预览加载失败，请刷新'; status.dataset.state = 'error'; }
+  function summary(spec) {
+    document.getElementById('preview-style').textContent = THEMES[spec.style]?.english || 'YOUR NEW WORLD';
+    document.getElementById('preview-name').textContent = spec.store.name;
+    document.getElementById('publish-name').textContent = spec.store.name;
+    document.getElementById('publish-summary').textContent = `${THEMES[spec.style]?.title} · ${spec.dimensions.width} × ${spec.dimensions.depth} m · ${spec.products.length} 件商品`;
+    document.getElementById('preview-dimensions').textContent = `${spec.dimensions.width} × ${spec.dimensions.depth} m / ${spec.products.length} 件陈列 / ${spec.lighting === 'warm' ? '日落暖光' : spec.lighting === 'cool' ? '极光冷光' : '自然天光'}`;
   }
-
-  function currentSpec() {
-    const template = templateInput?.value || 'boutique';
-    const accent = accentInput?.value || '#B23A48';
-    const source = stores[sourceInput?.value] || firstStore();
-    const products = source?.products?.length ? source.products : FALLBACK;
-    const minimal = template === 'minimal';
-    return {
-      version: 1,
-      store: {
-        name: (nameInput?.value || '新店预览').trim() || '新店预览',
-        tagline: (taglineInput?.value || '你的品牌标语').trim() || '你的品牌标语',
-        slug: 'preview',
-        factory: source?.name || '',
-      },
-      template,
-      dimensions: minimal ? { width: 10, depth: 8, height: 3.6 } : { width: 12, depth: 10, height: 4 },
-      palette: {
-        wall: minimal ? '#ECECEC' : '#F3EEE7',
-        floor: minimal ? '#C9C4BA' : '#B9A48C',
-        accent,
-        sign: minimal ? '#1A1A1A' : '#1F2937',
-      },
-      lighting: minimal ? 'cool' : 'warm',
-      products: products.map((product, index) => ({
-        id: index + 1,
-        name: product.name,
-        image: product.image || '',
-        color: product.color || accent,
-      })),
-    };
+  if (initial) summary(initial);
+  async function update() {
+    clearTimeout(timer); controller?.abort(); const current = ++sequence;
+    status.textContent = '正在生成…'; status.dataset.state = 'pending';
+    timer = setTimeout(async () => {
+      controller = new AbortController();
+      try {
+        const response = await fetch(form.dataset.previewUrl, { method: 'POST', body: new FormData(form), signal: controller.signal, credentials: 'same-origin' });
+        const spec = await response.json(); if (current !== sequence) return;
+        if (!response.ok) { const message = Object.values(spec.errors || {}).flat().join(' '); throw new Error(message || '请检查配置'); }
+        if (preview) preview.refresh(spec); else { preview = createStoreScene(host, spec, { pixelRatio: 1.2, interactive: false }); window.__METAMALL__ = preview; }
+        summary(spec); status.textContent = '已同步'; status.dataset.state = 'ready';
+      } catch (error) { if (error.name !== 'AbortError' && current === sequence) { status.textContent = error.message; status.dataset.state = 'error'; } }
+    }, 220);
   }
-
-  document.fonts.ready.then(() => {
-    const preview = createStoreScene(host, currentSpec(), { pixelRatio: 1.2 });
-    let timer = null;
-    const update = () => {
-      window.clearTimeout(timer);
-      timer = window.setTimeout(() => preview.refresh(currentSpec()), 160);
-    };
-    [nameInput, taglineInput, accentInput, templateInput, sourceInput].forEach((el) => {
-      if (!el) return;
-      el.addEventListener('input', update);
-      el.addEventListener('change', update);
-    });
-  }).catch(() => {
-    host.innerHTML = '<p style="color:#bbb;padding:24px">预览初始化失败。</p>';
+  form.addEventListener('input', update); form.addEventListener('change', update);
+  const picker = document.getElementById('accent-picker'), accent = document.getElementById('id_accent'); picker.value = accent.value;
+  picker.addEventListener('input', () => { accent.value = picker.value.toUpperCase(); update(); });
+  accent.addEventListener('input', () => { if (/^#[0-9a-f]{6}$/i.test(accent.value)) picker.value = accent.value; });
+  function go(value) {
+    step = Math.max(0, Math.min(2, value));
+    document.querySelectorAll('[data-panel]').forEach(el => { el.hidden = Number(el.dataset.panel) !== step; });
+    document.querySelectorAll('[data-step]').forEach(el => { el.setAttribute('aria-selected', String(Number(el.dataset.step) === step)); });
+    document.getElementById('previous-step').hidden = step === 0;
+    document.getElementById('next-step').hidden = step === 2;
+    document.getElementById('next-step').textContent = step === 0 ? '继续：空间设计 →' : '继续：商品与发布 →';
+  }
+  document.querySelectorAll('[data-step]').forEach(el => el.addEventListener('click', () => go(Number(el.dataset.step))));
+  document.getElementById('previous-step').addEventListener('click', () => go(step - 1));
+  document.getElementById('next-step').addEventListener('click', () => go(step + 1));
+  const presets = { atelier: { template: 'boutique', style: 'atelier', layout: 'gallery', width: 12, depth: 10, lighting: 'warm', accent: '#ED9276' }, gallery: { template: 'minimal', style: 'gallery', layout: 'runway', width: 10, depth: 8, lighting: 'cool', accent: '#8EDFF5' }, garden: { template: 'boutique', style: 'garden', layout: 'island', width: 14, depth: 10, lighting: 'daylight', accent: '#A6D895' } };
+  function preset(name) { for (const [key, value] of Object.entries(presets[name])) document.getElementById(`id_${key}`).value = value; picker.value = accent.value; update(); }
+  document.querySelectorAll('[data-preset]').forEach(el => el.addEventListener('click', () => preset(el.dataset.preset)));
+  document.getElementById('id_template').addEventListener('change', event => preset(event.target.value === 'minimal' ? 'gallery' : 'atelier'));
+  document.querySelector('[data-action="builder-reset"]').addEventListener('click', () => preview?.reset());
+  document.querySelector('[data-action="builder-quality"]').addEventListener('click', event => { if (preview) event.currentTarget.textContent = preview.quality() ? '画质 · 流畅' : '画质 · 高清'; });
+  form.addEventListener('submit', event => {
+    if (publishing) { event.preventDefault(); return; }
+    const invalid = form.querySelector(':invalid');
+    if (invalid) { event.preventDefault(); go(Number(invalid.closest('[data-panel]').dataset.panel)); invalid.reportValidity(); return; }
+    publishing = true; form.querySelector('.publish-button').textContent = '正在发布…';
   });
-} else if (host) {
-  host.innerHTML = '<p style="color:#bbb;padding:24px">预览数据缺失。</p>';
+  const errorPanel = form.querySelector('.errorlist')?.closest('[data-panel]'); if (errorPanel) go(Number(errorPanel.dataset.panel));
 }

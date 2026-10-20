@@ -1,59 +1,31 @@
-{% extends "base.html" %}
-{% load static %}
-{% block title %}3D 商圈{% endblock %}
+{% extends "base.html" %}{% load static %}
+{% block title %}元宇宙商圈{% endblock %}
+{% block body_class %}world-page district-page{% endblock %}
 {% block content %}
-<section class="hero-intro">
-  <div>
-    <p class="eyebrow">METAVERSE RETAIL DISTRICT</p>
-    <h1>三个工厂，<br>三家能走进去的店。</h1>
+<section class="world-stage" aria-label="可交互的三维元宇宙商圈">
+  <div id="mall-canvas" class="world-canvas"></div><div class="world-vignette"></div>
+  <div class="world-loading"><span class="loading-orbit">∞</span><p>正在抵达新世界</p></div>
+  <div class="world-intro">
+    <p class="eyebrow"><span class="status-dot"></span> 元宇宙商圈 / FASHION BEYOND REALITY</p>
+    <h1>虚实之间，<br><span>风格无界。</span></h1>
+    <p class="world-lead">走进未来商业中庭。<br>三种品牌，各自成境。</p>
+    <div class="world-entry-actions"><button class="button primary" type="button" data-action="walk" aria-pressed="false">进入世界 · 自由漫游 ↗</button><button class="button subtle" type="button" data-action="tour" aria-pressed="false">影院导览</button></div>
+    <div class="world-stats"><span><strong>{{ factory_count|stringformat:"02d" }}</strong>服装工厂</span><span><strong>{{ stores|length|stringformat:"02d" }}</strong>可进入展馆</span><span><strong>{{ product_count|stringformat:"02d" }}</strong>真实商品</span></div>
   </div>
-  <div class="hero-intro-side">
-    <p class="lead">点击门面进入店铺；建店器可以现场生成第 4 家。所有门面都对应真实商品和购物车。</p>
-    <a class="button" href="{% url 'mall:builder' %}">现场建一家店</a>
-    <div class="hero-meta">
-      <span><strong>03</strong> 工厂</span>
-      <span><strong>12</strong> 商品</span>
-      <span><strong>01</strong> 建店器</span>
+  <div class="world-utility"><span class="utility-label">SPACE CONTROLS</span><button data-action="exit-walk" hidden>退出漫游</button><button data-action="reset" aria-label="恢复商圈全景">⌖ 全景</button><button data-action="quality">画质 · 高清</button><button data-action="fullscreen">⤢ 全屏</button></div>
+  <div class="travel-overlay" aria-live="polite"><span>ENTERING A NEW WORLD</span><strong id="travel-destination">品牌展馆</strong><i></i></div>
+  <div class="tour-caption" id="tour-caption">THE FASHION DISTRICT</div>
+  <div id="world-labels" class="world-labels"></div>
+  <div class="walk-hud" hidden><span><b>W A S D</b> 行走 · 拖动环视 · Shift 加速 · Esc 返回全景</span><button id="walk-enter" type="button" hidden></button><div class="walk-directions"><button type="button" data-walk-key="w" aria-label="向前走">↑</button><div><button type="button" data-walk-key="a" aria-label="向左走">←</button><button type="button" data-walk-key="s" aria-label="向后走">↓</button><button type="button" data-walk-key="d" aria-label="向右走">→</button></div></div></div>
+  <div class="world-coordinate"><span class="crosshair">+</span><span>空间坐标<br><strong>01 / THE ATRIUM</strong></span><div class="coordinate-orbits"><i></i><i></i><i></i><b>∞</b></div></div>
+  <div class="district-bottom">
+    <div class="dock-heading"><span>选择你的目的地</span><span class="scene-hint">拖动环视 · 滚轮靠近 · 点击展馆进入</span></div>
+    <div class="destination-dock" style="--destinations:{{ stores|length }}">
+      {% for store in stores %}<a class="destination" href="{% url 'mall:store' store.slug %}"><span class="destination-number">{{ forloop.counter|stringformat:"02d" }}</span><span class="destination-copy"><strong>{{ store.name }}</strong><small>{{ store.config.tagline|default:store.factory.name }}</small></span><span class="destination-arrow">↗</span></a>{% empty %}<a class="destination" href="{% url 'mall:builder' %}">成为这片世界的第一位建造者 ↗</a>{% endfor %}
     </div>
+    <div class="world-bottomline"><span>REAL BRANDS. UNREAL POSSIBILITIES.</span><a href="{% url 'mall:builder' %}">下一座展馆，由你定义 <b>＋</b></a></div>
   </div>
 </section>
-
-<section class="hero-full">
-  <div class="hero-media"><div id="mall-canvas"></div></div>
-  <div class="hero-veil"></div>
-  <div class="canvas-badge">DISTRICT 01 · OPEN</div>
-  <div class="hero-status">3 STORES · LIVE</div>
-  <div id="mall-tooltip" class="scene-tooltip"></div>
-  <p class="canvas-hint">拖动旋转 · 滚轮缩放 · 点击门面进入</p>
-</section>
-
-<section class="section">
-  <div class="section-head">
-    <p class="eyebrow">STORES</p>
-    <h2>本期店铺</h2>
-  </div>
-  <div class="store-grid">
-    {% for store in stores %}
-      <a class="store-card" href="{% url 'mall:store' store.slug %}">
-        {% if store.featured_image %}
-          <div class="store-cover"><img src="{{ store.featured_image }}" alt="{{ store.name }}"></div>
-        {% endif %}
-        <div class="store-band" style="background: {{ store.config.palette.accent|default:'#B23A48' }}"></div>
-        <div class="store-card-body">
-          <p class="muted">{{ store.factory.name }}</p>
-          <h3>{{ store.name }}</h3>
-          <p>{{ store.config.tagline|default:"欢迎进店看看" }}</p>
-          <span class="text-link">进入 3D 店铺 →</span>
-        </div>
-      </a>
-    {% empty %}
-      <p>还没有已发布的店铺，请先运行 seed_demo 或在后台创建。</p>
-    {% endfor %}
-  </div>
-</section>
-
 {{ stores_data|json_script:"mall-data" }}
 {% endblock %}
-{% block scripts %}
-<script type="module" src="{% static 'js/mall.js' %}"></script>
-{% endblock %}
+{% block scripts %}<script type="module" src="{% static 'js/mall.js' %}"></script>{% endblock %}

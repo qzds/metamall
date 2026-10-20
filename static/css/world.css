@@ -1,0 +1,124 @@
+/* World presentation layer. Business pages keep the shared application styles. */
+:root { --world-ink: #060c17; --world-silver: #b9d7e4; }
+.world-page, .builder-page { background: var(--world-ink); }
+.nav { background: rgba(6, 12, 23, .93); border-bottom-color: rgba(172, 204, 225, .14); }
+.brand { letter-spacing: .2em; font-size: 16px; }
+.brand-orbit { color: #d6e7ef; font-size: 30px; }
+.brand-edition { font-size: 8px; letter-spacing: .14em; }
+.nav nav { gap: 27px; }
+.world-vignette { background: linear-gradient(90deg, rgba(3, 8, 17, .58), transparent 35%), linear-gradient(0deg, rgba(3, 8, 17, .86), transparent 27%, transparent 80%, rgba(3, 8, 17, .14)); }
+.world-intro { top: 6.5%; left: 3.4%; width: 380px; }
+.world-intro .eyebrow { font-size: 9px; letter-spacing: .2em; margin-bottom: 24px; color: #b8d6e4; }
+.world-intro h1 { font-size: clamp(42px, 3.8vw, 67px); line-height: 1.2; letter-spacing: -.055em; font-weight: 400; }
+.world-intro h1 span { color: #b6cdd9; }
+.world-lead { font-size: 12px; line-height: 1.9; color: #9cabbc; margin: 20px 0 23px; }
+.world-entry-actions { gap: 8px; }
+.world-intro .button { min-height: 39px; font-size: 11px; padding: 12px 16px; }
+.world-intro .primary { background: #c2d9e5; color: #0b1524; }
+.world-stats { margin-top: 26px; gap: 24px; }
+.world-stats strong { font-size: 19px; font-weight: 400; }
+.world-stats span { font-size: 8px; color: #8595a8; }
+.world-utility { top: 24px; right: 3.4%; }
+.world-utility button, .preview-controls button { border-radius: 2px; background: rgba(9, 19, 34, .72); padding: 9px 13px; border: 1px solid #42536a66; font-size: 10px; }
+.utility-label { display: none; }
+.world-coordinate { right: 3.4%; top: 105px; opacity: .6; transform: scale(.8); transform-origin: right top; }
+.world-pin { background: rgba(5, 12, 22, .78); backdrop-filter: blur(12px); border: 1px solid #7995ae55; border-radius: 1px; padding: 11px 14px; box-shadow: 0 7px 25px #0003; }
+.world-pin::after { content: ''; position: absolute; left: 50%; width: 1px; height: 25px; top: 100%; background: linear-gradient(#b2cbd7aa, transparent); }
+.world-pin strong { font-size: 12px; font-weight: 400; letter-spacing: .07em; }
+.world-pin.is-hovered { border-color: var(--brand-color); background: #24384ac9; }
+.world-pin > span:first-child { color: var(--brand-color); }
+.district-bottom { left: 3.4%; right: 3.4%; bottom: 16px; }
+.dock-heading { font-size: 9px; color: #8d9aad; margin-bottom: 10px; }
+.destination-dock { background: rgba(7, 15, 27, .8); border: 1px solid #7995ae44; border-radius: 2px; backdrop-filter: blur(18px); }
+.destination { min-height: 70px; padding: 16px 22px; transition: background .25s, border-color .25s; }
+.destination:hover { background: #c3e3ee13; }
+.destination-number { font-family: Consolas, monospace; color: #7f9db3; font-size: 9px; }
+.destination-copy strong { font-size: 15px; font-weight: 400; letter-spacing: .08em; }
+.destination-copy small { font-size: 9px; color: #7f91a5; }
+.destination-arrow { color: #b6cfdf; }
+.world-bottomline { margin-top: 11px; font-size: 8px; }
+.travel-overlay { position: absolute; z-index: 20; inset: 0; pointer-events: none; opacity: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(4, 10, 20, .35); transition: opacity .7s ease; }
+.travel-overlay > span { letter-spacing: .35em; font-size: 10px; color: #a9bacd; }
+.travel-overlay strong { font-size: 36px; font-weight: 400; letter-spacing: .1em; margin-top: 16px; }
+.travel-overlay i { width: 80px; height: 1px; background: #b5e0f0; margin-top: 25px; }
+.is-travelling .world-stage { opacity: 1; transform: none; filter: none; }
+.is-travelling .travel-overlay { opacity: 1; }
+.is-travelling .world-intro, .is-travelling .district-bottom, .is-travelling .world-pin { opacity: 0; transition: opacity .3s; }
+.tour-caption { position: absolute; z-index: 5; bottom: 190px; left: 4%; font-size: 17px; letter-spacing: .15em; color: #dcecf5; opacity: 0; pointer-events: none; }
+.is-touring .tour-caption { opacity: 1; }
+.is-touring .world-intro, .is-touring .world-coordinate { opacity: 0; pointer-events: none; }
+.is-touring .world-pin { opacity: .5; }
+.camera-presets { position: absolute; left: 3.4%; top: 285px; display: flex; flex-direction: column; gap: 8px; z-index: 5; }
+.camera-presets button { background: #091322aa; color: #a4b6c8; font-size: 10px; text-align: left; letter-spacing: .08em; padding: 10px 14px; border: 1px solid #68849b44; border-radius: 1px; }
+.camera-presets button:hover { color: white; border-color: #a6ccddaa; }
+.store-identity { top: 27px; left: 3.4%; }
+.store-identity h1 { font-weight: 400; font-size: 33px; letter-spacing: -.025em; }
+.store-identity .eyebrow { font-size: 9px; color: #95b8c9; margin-top: 24px; }
+.store-identity > p:not(.eyebrow) { font-size: 11px; color: #9aabbc; }
+.space-pill { background: #0a142499; border-radius: 1px; font-size: 9px; }
+.store-interaction-hint { color: #9eb8cb; font-size: 10px; bottom: 176px; }
+.store-bottom { left: 3.4%; right: 3.4%; }
+.collection-dock { background: #091423c9; backdrop-filter: blur(14px); border-radius: 2px; }
+.product-inspector { border-radius: 3px; background: rgba(8, 17, 30, .96); border: 1px solid #69849c66; }
+.builder-workspace { background: #080e19; }
+.builder-panel { background: #091321; border-color: #25364a; }
+.builder-panel h1 { font-weight: 400; }
+.builder-viewport { background: #050b16; }
+.builder-preview-title { top: 56px; left: 34px; pointer-events: none; }
+.builder-preview-title h2 { font-weight: 400; font-size: 27px; }
+.builder-preview-title > span { font-size: 8px; }
+.preview-topline { border-color: #42556b44; background: #091523aa; }
+.builder-tabs button[aria-selected="true"] { border-bottom-color: #c7dae5; }
+.style-presets button { border-radius: 2px; }
+.preview-controls { top: 24px; bottom: auto; align-items: flex-start; }
+.preview-topline { right: 235px; }
+.world-loading { background: #060c17; }
+@media(max-width: 1500px) {
+  .world-intro { width: 320px; top: 5%; }
+  .world-intro h1 { font-size: 46px; }
+  .world-intro .eyebrow { font-size: 8px; margin-bottom: 20px; }
+  .world-stats { margin-top: 18px; gap: 22px; }
+  .world-intro .button { font-size: 10px; padding: 11px 13px; }
+  .world-lead { margin: 16px 0; }
+}
+@media(max-width: 1000px) {
+  .brand-edition { display: none; }
+  .nav nav { gap: 15px; }
+  .world-intro { width: 275px; }
+  .world-intro h1 { font-size: 39px; }
+  .world-stats { display: none; }
+  .destination { min-height: 62px; padding: 12px; }
+  .destination-copy strong { font-size: 13px; }
+  .destination-copy small { display: none; }
+  .camera-presets { top: 265px; }
+}
+@media(max-width: 760px) {
+  .nav { padding: 12px 16px; }
+  .brand { font-size: 13px; }
+  .nav nav { gap: 14px; }
+  .world-intro { top: 70px; left: 20px; width: 235px; }
+  .world-intro h1 { font-size: 34px; }
+  .world-intro .eyebrow { max-width: 240px; font-size: 7px; }
+  .world-lead { display: none; }
+  .world-entry-actions { margin-top: 17px; }
+  .world-utility { top: 15px; right: 16px; }
+  .world-pin { padding: 7px 8px; }
+  .world-pin strong { font-size: 10px; }
+  .world-pin > span:first-child { display: none; }
+  .district-bottom { left: 16px; right: 16px; bottom: 14px; }
+  .destination-dock { overflow-x: auto; grid-template-columns: repeat(var(--destinations), minmax(140px,1fr)); }
+  .destination-copy strong { font-size: 13px; }
+  .world-bottomline > span { display: none; }
+  .world-coordinate { display: none; }
+  .store-identity { left: 20px; top: 60px; }
+  .store-identity h1 { font-size: 26px; }
+  .camera-presets { top: auto; bottom: 170px; left: 20px; flex-direction: row; }
+  .camera-presets button { font-size: 8px; padding: 7px; }
+  .store-interaction-hint { display: none; }
+  .builder-preview-title { top: 50px; left: 18px; }
+  .builder-preview-title h2 { font-size: 21px; }
+  .tour-caption { bottom: 155px; left: 20px; font-size: 12px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  .travel-overlay, .destination { transition: none; }
+}
